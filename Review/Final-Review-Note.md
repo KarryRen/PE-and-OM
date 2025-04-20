@@ -82,9 +82,94 @@ Under our specification of uniform distribution, **a dealer platform and a pure 
 
 ## 2. Network Effect
 
-基本的概念要十分清楚，这也是平台的第一个基本属性
+### 2.1 Introduction
 
-平台的三个均衡点是怎么转变的，是怎么推出来的，哪一个是稳定的，哪一个是不稳定的，要回分析
+**Network effects**, or network externalities are said to exist when the benefit that a consumer derives from owning a product increases when the number of other consumers of the product increases. 当拥有某种产品的其他消费者数量增加时，消费者从该产品中获得的效用也随之增加，也就是说个人获得的效用不仅取决于平台，还取决于使用平台的人数。
+
+**Two types of network effects:**
+
+- **Direct**: buyers form a network of users **who communicate with each other**. 我用了，会直接联系其他人一起用
+  - Phones, Emails, Fax Machines, Operating Systems
+  - DVD Players, Social Media, E-commerce and Games
+- **Indirect**: the number of buyers of a good stimulates production of goods (supply side) that enhance the value of initial product. 买家多了 ⇒ 买家就会更多⇒ 买家获得更大效用
+  - **Operating Systems:** more Windows users ⇒ more firms develop software ⇒ higher utility for Windows users. 
+  - **Payment Cards:** 用的人多的话，Pos 机就多，用的人的效用就会很增加
+  - **Shopping Malls**: more shoppers ⇒ more stores in the mall ⇒ higher utility to go there.
+  - <font color="red">**Dating Agencies:** more males ⇒ higher male to female ratio ⇒ lower utility for males. (Negative)</font>
+
+**Critical Mass**
+
+The required network size for the network to take off. After reaching a certain scale, i.e. **critical mass**, the value offered by the network becomes really high for one or more user classes.
+
+<img src="./Final-Review-Note.assets/2.1.png" alt="2.1 " style="zoom:33%;" />
+
+In practice, predicting the critical mass is very difficult:
+
+- Diffusion within vs. across groups – targeting issue (不同的目标结果不同)
+- Benefits from the size of the network – depends on product/service (不同内容效果不同)
+- Competition from other networks/platforms – standard wars (竞争对手)
+
+### 2.2 Demand Curve
+
+和一般的需求函数可能只取决于所使用东西本身的质量不同，Network Effect 的需求曲线需要考虑使用的人数。How to create a demand curve when consumer WTP depends on how many people are using the product/service?
+
+**Demand Curve without Network Effect**
+
+<img src="./Final-Review-Note.assets/2.2.png" alt="2.2" style="zoom:30%;" />
+
+**Demand Curve with Network Effect**
+
+核心在于对 Utility 方程的重新定义，过程再次不再说明，直接给出结果 $p=100f(1-f)$ 和后续分析：
+
+<img src="./Final-Review-Note.assets/2.3.png" alt="2.3 " style="zoom:40%;" />
+
+There is always a Nash equilibrium, in which nobody purchases the fax machine.（所有人都不参与，本身就是一个 Nash 均衡）；
+
+在 Price 不为 0 的情况下不可能所有人都参与进来，也就是说 $f \ != 1$。
+
+Price 在 0 和 1 之间的时候有三个均衡点，两边的点是稳定的，中间的点不稳定很容易向左右两边滑落
+
+<img src="./Final-Review-Note.assets/2.4.png" alt="2.4 " style="zoom:30%;" />
+
+关于均衡点 2：
+
+- Given a price, marginal individual’s WTP is higher than the price when the network size is in between $f_- (p)$ and $f_+ (p)$
+- Individuals whose WTP is above the price will purchase, which forces the network size to converge to the eq’m 3.
+- Similarly, if the network size is lower than $f_- (p)$ or higher than $f_+ (p)$, marginal individual’s WTP is lower than the price, which discourage customers to purchase.
+- Conversely**, the zero-demand and high-demand Nash equilibria are stable**: after a small perturbation (or even a large one, here), the industry goes back to the initial equilibrium.
+
+上述分析可以得到 Critical Mass:
+
+- Threshold $f_- (p)$ is usually thought of as the **critical mass** of buyers which leads to the buildup of the network.
+- Once the monopoly has reached this critical mass, the snowball starts rolling (in the right direction), and consumers demand converges to the high-demand equilibrium $f_+ (p)$.
+- Sometimes, it may take a lot of time to reach the critical mass. Example: Fax machines in the U.S.
+
+Solve the Optimal Price:
+
+$Π(f)=P(f)×(100f)=10^4 f^2 (1 -f).$
+
+This yields a price $p=100×2/9=200/9$ and profits $Π=4×10^4/27$.
+
+**Which Equilibrium to Reach?**
+
+平台肯定希望到达均衡点 3，但是这取决于很多的因素，不一定是能够自然达到的。However, as a company, you can create an **external “shock**” to the system in order to shift from one equilibrium to another. 后面要多多讨论公司的策略。
+
+Firm’s Strategies: (这些 Strategies 都是很 make sense 很容易被想到的)
+
+- **Penetration pricing / introductory pricing**: Set a low price until you reach the critical mass. 
+- **Price discrimination**: give away your products to some consumers (say, households), and make other consumers (say, businesses) pay. 
+- **Pirated software.** 盗版软件
+- **Government intervention** is necessary sometimes to rule out the zero-demand equilibrium.
+
+After Reaching Critical Mass
+
+Once we’ve reached a critical mass, we are in a good position. But we might also have to work hard to keep it. 
+
+### 2.3 Path Dependence
+
+**If there is a better product, it may not actually win**, especially if it’s a bit late getting started. The eventual outcome may depend crucially on a small number of initial adoptions. **History** can play a big role.
+
+VHS 的胜利是网络效应主导标准战争的经典案例。Ohashi 的模型表明，尽管 Betamax 在非网络因素（如音质）上占优，但 VHS 通过内容生态、价格策略和开放合作，放大了网络效应的权重（*ω*），最终突破临界质量。这一案例揭示了平台经济中“连接价值”对“产品价值”的超越，并为现代技术标准竞争提供了理论参考。
 
 
 
