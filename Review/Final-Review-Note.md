@@ -10,9 +10,73 @@
 
 ## 1. Introduction
 
-4 major roles + examples, 并且学会分辨, 要记住上课讲的一些例子。
+### 1.1 Definations
 
-Decentralized Market 那个证明，第一堂课中的以及第一次作业的题目。
+Platform brings together **different types of users** to enable economic or social interaction. A platform provides a way for two parties to enter into **mutually beneficial exchange or transaction**, platforms are matchmakers.
+
+### 1.2 **Why are platforms taking over?** 
+
+**Reason 1: network effects**
+
+Platforms leverage network effects. Network effects mean that a user will pay more to connect to a larger network. Network effects create very significant inequality in sales and profits (**Winner-takes-most world**).
+
+**Reason 2: Platforms usually have fewer employees and less fixed investment than traditional companies**
+
+**Reason n: platform strength**
+
+- **The focus is external**: A platform tries to bring together as many as possible from both (or all) sides, match them and create transactions. 
+- Platforms disrupt traditional business
+
+### 1.3 Role of platforms
+
+**Four major roles of platforms:**
+
+- **dealer**: buy from providers and resell to final consumers, brings together sellers and buyers and provides a substitute of directed trade (decentralized market). Uber, 滴滴, 高德, 亚马逊自营, Apple’s iTunes music store
+- **pure platform operator**: provide platforms to allow sellers and buyers to interact. 购物网站, Airbnb, eBay, Amazon
+- **infomediary**: an information gatekeeper which provides consumers with better information. 微博, 小红书
+- **trusted third-party**: a certification agent which reveals product or reliability information. 支付宝, 安全认证
+
+**How to set price ?**
+
+A platform may collect from both sides (Airbnb)  or Collect from one side and subsidize the other (Amex). 定价的框架如下
+
+<img src="./Final-Review-Note.assets/1.1.png" alt="1.1" style="zoom:25%;" />
+
+### 1.4 Value of Platforms
+
+**A simple model**
+
+$v_H > c_H > v_L > c_L$ 的假设下画一个相交图，$v_L$ 和 $c_H$ 遇到后是无法交易的。Inefficiency comes from the matching friction (transaction cost)。对 Buyer 设定一个平台销售价格 $p_B$ 对 Seller 设定一个平台收购价格 $p_S$。将 $c_H$ 和 $v_L$ 赶出市场：$v_H - p_B \ge \frac{v_H - c_H}{2}$，$p_S - c_L \ge \frac{v_L - c_L}{2}$，同时又要保证 $p_B$ 尽可能高，$p_S$ 尽可能低，进而 $p_B = \frac{v_H + c_H}{2}$, $p_S = \frac{v_L + c_L}{2}$.  这样 $v_L$ 和 $c_H$ 都会推出市场，因为 $v_L-p_B<0$ 和 $p_S - c_H < 0$。这样只有 $v_H$ 和 $c_L$ 以及平台的交易中，达到了最优解，平台分利。
+
+A platform that operates centralized exchanges may improve efficiency by sorting different types of participants.
+
+**Further**
+
+$v_H > v_L > c_H > c_L$ 本身就是最优均衡了，引入平台后 $v_L$ 和 $c_H$ 仍然会在平台下自由交易，这是和上面最大的区别，平台引入不会带来新的价值提升。
+
+### 1.4 Dealer versus pure platform operators
+
+**Model**
+
+两种假设的模型推导下，得到的是相同的结果，profits 是 $\frac{1}{27}$。
+
+Under our specification of uniform distribution, **a dealer platform and a pure platform operator obtain the same profits.** Moreover, the **optimal bid-ask spread (dealer) is equal to the transaction fee (pure platform operator)** and the trade volumes are the same.
+
+但是这个结果并不是 General 的，是因为我们假设的均匀分布造成的。
+
+**Conclusion**
+
+哪种模式的利润或者销售量高是不确定的，平台可以根据自己的阶段转换角色
+
+- If the platform acts as a dealer, trade is socially insufficient as the platform exerts monopoly power on both sides.
+- If the platform acts as pure platform operator, sellers exert monopoly power over buyers, which yields high price but also high seller participation.
+- In general, it is ambiguous under which role the platform makes higher profits and the transaction volumes are higher.
+
+当然也有一些其他的因素导致 platform 选择的模式不同
+
+- inventory **cost** of the platform,
+- information **processing cost** of the platform,
+- Information **asymmetry** between sellers and the platform
 
 
 
