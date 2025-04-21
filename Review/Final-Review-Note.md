@@ -175,31 +175,395 @@ VHS 的胜利是网络效应主导标准战争的经典案例。Ohashi 的模型
 
 ## 3. Platform Pricing
 
-Two-sided 垄断, registration fees 是很关键的, 推导出来的结果需要记住
+### 3.1 Some Puzzles
 
-鸡蛋问题
+A night club allows women to enter free. But it charges men entrance fee. Youtube allows us to visit and see its content for free. But advertisers need to pay. 还有一些其他的收费现象，引出来的是一种比较奇怪的定价结构 **Asymmetric prices structure**.
+
+### 3.2 Standard monopoly pricing
+
+$$
+\max_𝑝⁡(𝑝 − 𝑐)𝐷(𝑝), \\
+(𝑝^∗− 𝑐)𝐷^′ (𝑝^∗) + 𝐷(𝑝^∗) = 0, \\
+𝑝^∗−𝑐=−\frac{(𝐷(𝑝))}{(𝐷^′ (𝑝))}
+$$
+
+最终可以求解出来 $p^*$ 相对于弹性 $\epsilon$ 的函数
+$$
+\frac{p^*-c}{p^*} = \frac{1}{\epsilon}
+$$
+这说明传统的垄断定价只和弹性与价格相关，与其他的特征都无关！
+
+### 3.2 Platform pricing
+
+**Two-sided monopoly: transaction fees**
+
+所谓 transaction fee，含义就是每次交易都要向买卖双方收取的费用。在这个地方需要注意的是，买卖双方的需求函数和对方的 utility 是高度绑定的。最终针对 transaction fee 而言的求解结果如下：
+$$
+𝑡_𝑖^∗+𝑡_𝑗^∗− 𝑐 =(𝑡_𝑖^∗)/𝜖_𝑖 , ∀𝑖 = 𝐵, 𝑆 \text{ and } 𝑗≠𝑖
+$$
+where $ϵ_i=-t_i^∗ D_i^′ (t_i^∗)/D_i (t_i^∗) $ is the price elasticity of demand of side $i$. Define total fee by $t=t_S+t_B$ and total elasticity by $ϵ=ϵ_S+ϵ_B$. We are back to the Lerner formula:
+$$
+t-c=t_B/ϵ_B =t/ϵ
+$$
+这个结果和上面的标准垄断是一样的。
+
+**Two-sided monopoly: registration fees**
+
+所谓 registration fee，含义就是一次性收取的费用。同样效用函数也和对方的数量多少相关，最终可以求解最优 registration fee 如下：
+$$
+(𝑟_𝑖^∗−(𝑐_𝑖−𝛼_𝑗 𝐷_𝑗))/(𝑟_𝑖^∗ )=1/𝜖_𝑖
+$$
+这一部分的分析很重要：
+
+- Registration fee decreases when the price elasticity increases. 弹性大就需要降低注册费
+- If the number of users on side $j$ is large, platform tends to subsidize the side $i$. $D_j$ 大了 $r_i$ 就会小。
+- Recall that $α_j$ represents how much value that side $i$ offers side $j$. In other words, it is the importance of the side $i$ in the perspective of side $j$.  **If side $i$ can offer more value to side $j$, platform tends to subsidize the side $i$.**
+- Prices tend to be **lower** compared to the case where network externality is not present. ($α_j=0$) 
+- Registration fees can be **below marginal cost or negative** if the cross-group network externality $α_j$, $D_j$ is large enough. 
+
+**Different pricing strategies**
+
+- In video games 用户弹性大, **end users are subsidized**. Platform providers like Sony PlayStation and Microsoft Xbox price consoles at or below cost. Game developers pay a royalty to console manufacturers as much as 20% of a game retail price. 
+
+  > Video game consoles users - typically teenagers - are **far more price sensitive than typical PC users**. 
+
+  Making game consoles more affordable dramatically increased the value of console, shifting developer demand out and to the right. Here, game console subsidized consumers. **Profit lost on one side of market is less than profit gained on other side of market.** 补贴用户带来开发者的损失完全小于用户带来的收益。
+
+- In the PC market 开发者弹性大, **end users are the money side**, paying well above cost. Application developers, on the other hand, pay no royalties and receive free software development kits from the OS vendors. 
+
+  > PCs are often purchased for work and are otherwise more likely viewed as household necessities than game consoles are, so **price sensitivity** is lower. 
+
+  Making System Development Toolkits (SDKs) free dramatically increased the value of operating systems, shifting consumer demand out and to the right. Here, Microsoft subsidized developers. **Profit lost on one side of market is less than profit gained on other side.** 补贴开发者带来的用户损失完全小于开发者带来的收益。
+
+### 3.3 Divide-and-conquer 
+
+**The launching stage**
+
+Two-sided platforms often face a **“chicken-and-egg”** (**The Penguin Problem**) coordination problem（无法迈出第一步）:
+
+- in order to attract buyers, the platform should have a large base of sellers, and vice versa.
+- buyer are willing to join the platform only if they expect many sellers to join the platform too.
+
+Problem arises when both sides hold pessimistic belief about the participation rate of the other side.
+
+Possible solution: **Divide-and-conquer** (分而治之) pricing strategy: Subsidize one side of the market to get it on board and then use the presence of this subsidized side to attract the other side.
+
+**Divide-and-conquer strategy**
+
+For any $r_s>0$ and $r_B>0$ chosen in stage 1, sellers and buyers coordinate on the equilibrium which yields **the lowest payoff** to the platform. 
+
+The detailed strategy: 分组后先用补贴吸引一部分弹性大的人，从另外一组人榨取更多资金
+
+- divide group $i$: $r_i≤0$. (Subsidy side: attract users and grow network size)
+- conquer group $j$: $r_j>0, j≠i$. (Money side: pay for the privilege of gaining access)
+
+How it works ? 更难获取的一方被调动后，整个平台就活跃起来了
+
+- Group $i$ gets surplus $-r_i≥0$ even no group $j$ agents join the platform. This is a **free meal** and they would like to join the platform.
+- Given that group $i$ agents are on board, group $j$ agents would like to join if the $r_j$ is reasonable. The platform then charges $r_j>0$ to extract surplus from group j agents.
+
+The coordination problem is more severe for those platforms at the launching stage: when a platform has established its reputation, the agents should not hold pessimistic belief about the other side’s participation.
+
+**Demo: The Story of Acrobat Reader/Writer**
+
+- Adobe Acrobat PDF reader is free while the Adobe Acrobat writer is not.
+- Adobe first tried to sell PDF readers and writers but no one wanted to buy readers **when there was no content to read**. And, no one wanted to buy writers when no one had readers. Adobe broke the logjam by giving PDF readers away.
+
+**Extension Thoughts**
+
+In a traditional one-sided market, price depends only on **marginal cost** and **elasticity of demand**. 
+
+But on platforms, pricing depends not only on the demand and cost from this side, but also on how their participation affects participation on the other side, and the profits associated with the other side, i.e., **the elasticity and the mark-up charged to the other side**. Identify the group that **creates large network effects** for the other group and the group that is more price-sensitive.
+
+For a traditional one-sided market, we know that price should **drop when elasticity of demand is high**.
+
+But in a two-sided market, you want to lower it even further. 
+
+- The increased value extracted from the other side magnifies the value of having more consumers on the price elastic side.
+- So often times, we see $p < mc$. 
 
 
 
 ## 4. Platform Competition
 
-平台竞争来进行推导
+### 4.1 Standard competition models
+
+**Bertrand competition**
+
+Assumptions:
+
+- 2 firms produce a homogeneous product (perfect substitutes) 很难完全同质
+- Marginal cost = c for both firms 不同的公司边际成本一般不同
+- Firms satisfy all the demand (i.e. there is no capacity constraints) 生产能力很难覆盖整个市场
+- They **set prices** simultaneously (that is before observing the price of its rival) 现实可能有先后
+- Consumers buy the product from the firm that offers the lowest price 有可能有偏向
+
+The unique equilibrium is 
+$$
+p^*_i=p^*_j=c
+$$
+How to prove it? 在边际成本之上都可以降价，降价就可以增加利润，没有不降价的理由
+
+Profit is 0? Why is it different from what we observe in the real life? 现实生活中很难满足如此多的假设，存在更多符合现实的情况
+
+**Hotelling model of competition**
+
+Assumptions:
+
+- “Linear city” is the interval $[0,1]$. Consumers are distributed uniformly along this interval.
+- There are 2 firms, located at each extreme who sell the same good. The unique difference among firms is their location.
+- $τ$ is the **transportation cost**. This cost is up to the consumer to pay. If a consumer is at a distance $x$ to one of the sellers, its transportation cost is $τx$ . This cost represents the value of time, gasoline, or adaptation to a product, etc.
+- Firms **set prices** simultaneously.
+- Consumers buy the product from the firm that offers the highest utility to them.
+- Consumers have unit demands, they buy at most one unit of the good $\{0,1\}$.
+
+这个地方推导的核心在于找到对于 2 firms 的无差异 $x^*$ 然后分别让两个 firms 的 value 最高，求导就可以求解了。
+$$
+𝑝_1^∗=𝑝_2^∗=𝑐+ 𝜏
+$$
+对  $τ$ 还做了进一步的解释：An increase in $τ$ implies more product differentiation. Therefore, firms compete less vigorously (set higher prices) and obtain higher profits.
+
+If the firms can choose their own locations, which are optimal locations for them? 价格竞争下，企业通过靠近对手减少消费者的运输成本差异，从而弱化价格竞争压力。
+
+### 4.2 Platform competition
+
+Consider the situation where multiple platforms are competing for users.
+
+- **single-homing 单栖**: a user only joins one platform. 用户或供应商**仅在一个平台上活动**，不参与其他竞争性平台。
+- **multi-homing 多栖**: a user joins several platforms. 用户或供应商**同时在多个平台上活动**，根据需求切换平台。
+
+Possible configurations of users in platform-competition models.
+
+- Both sides are single-homing.
+- One side is single homing while the other side is multi-homing.
+- Both sides are multi-homing. 
+
+**Platform competition: single-homing**
+
+Assumptions:
+
+- There are two horizontally differentiated platform, 1 and 2.
+  - There is a Hotelling line with length of 1. 
+  - Platform 1 and 2 are located at the two ends.
+- There is a unit mass of buyers and a unit mass of sellers.
+- Each buyer or seller can at most join one platform (both sides are single-homing).
+- Hotelling differentiation:
+  - Both sellers and buyers are uniformly distributed on the Hotelling line. 
+  - Hotelling transportation cost parameter: $τ_S$ for sellers and $τ_B$ for buyers.
+
+Solution: 
+
+求导之后的均衡如下：
+$$
+𝐴_𝑆=𝑐_𝑆+𝜏_𝑆−(\frac{𝑏_𝐵}{𝜏_𝐵} )(𝑏_𝑆+𝐴_𝐵−𝑐_𝐵)\\
+𝐴_𝐵=𝑐_𝐵+𝜏_𝐵−(\frac{𝑏_𝑆}{𝜏_𝑆} )(𝑏_𝐵+𝐴_𝑆−𝑐_𝑆)
+$$
+先对这个中间等式做解析：
+
+<img src="./Final-Review-Note.assets/4.1.png" alt="4.1 " style="zoom:50%;" />
+
+- when network externality is absent, Hotelling model will give $A_S=c_S+τ_S$.
+- In the two-sided market setting, the price is adjusted downward by the factor $\frac{𝑏_𝐵}{𝜏_𝐵}(𝑏_𝑆+𝐴_𝐵−𝑐_𝐵)$
+- The term $b_S+A_B-c_B$ represents the external benefit that platform $i$ gets by attracting an additional buyer.
+  - First, platform $i$ makes profits $A_B-c_B$ when there is one more buyer joins.
+  - Second, $b_S$ reflects the additional surplus that platform $i$ can extract from sellers when it has an extra buyer.
+- Moreover, this benefit is adjusted by $\frac{𝑏_𝐵}{𝜏_𝐵}$ as one additional seller attracts $\frac{𝑏_𝐵}{𝜏_𝐵}$ additional buyers.
+
+最终结果如下：其中 $𝑏_𝐵$ 是 Seller 给 Buyer 的网络效应
+$$
+𝐴_𝑆=𝑐_𝑆+𝜏_𝑆−𝑏_𝐵 \\
+𝐴_𝐵=𝑐_𝐵+𝜏_𝐵−𝑏_𝑆
+$$
+
+- The side of the market which exerts larger externality tends to be subsidized. 更容易造成 Network Effect 的应被补贴
+- The side of the market with little horizontal differentiation tends to pay low membership fee. 差异性越小定价越低
+
+**Platform competition: multi-homing**
+
+Under multi-homing, is the competition more fierce or less fierce? 显然是更激烈了
+
+Under multi-homing, is it more or less likely to lead to “winner-takes-all”? 降低赢者通吃的可能性
+
+Does multi-homing, compared with single-homing, have higher market efficiency? 效率的确更高！
+
+**Extension**
+
+- Big or small platform is more likely to accept interoperability? Small
+- Congestion: negative same-side network effect 负面的网络效应可能带来拥挤
+
+<img src="./Final-Review-Note.assets/4.2.png" alt="4.2" style="zoom:30%;" />
+
+Aibnb 是全连接更稳固，Uber 则是按照地域连接很容易被切断（中国出现了 Didi）
 
 
 
 ## 5. Platform Launch
 
-破解企鹅问题
+**Strategies to Overcome the Chicken-or-Egg Dilemma**
+
+在第 3 章中，我们初步认识了 Chicken-or-Egg Dilemma 也理解了如何用定价的方式来破解问题，现在我们做进一步的探讨。
+
+### 5.1 Subsidize users
+
+**Fixed subsidy:** per user. Hourly payment guarantees, fixed bonuses for signup, referral subsidy. 
+
+**Variable subsidy:** per interaction. Bonus on the supply side, discount on the demand side. 
+
+### 5.2 Increase (perceived) value to new user 重要！
+
+- Create standalone value. 创造独一无二的价值 (Operation system, phone)
+- Start in niche market. 开启细分市场 (Facebook, Uber)
+- Fill in one side (Taskrabbit, Taobao Tmall)
+- Simulate users (Airbnb, weibo)
+- Build hype 大肆炒作宣传 (Twitter, weibo) 
+
+### 5.3 Decrease user adoption cost 重要！
+
+- Compatibility: new platform compatible with the old ones. (可兼容性)
+  - Playstation 5, Microsoft Windows OS, Taobao and Alipay 
+- Offer tools or training
+  - Microsoft, Intel offer development classes and kits. Uber offers help in driver licensing process. 
+
+### 5.3 Dynamics of staging: which side first?
+
+**Value dynamics 价值是不同的**
+
+- Onboard **first those** who are less sensitive to the existence of the other side: LinkedIn（领英，雇主明显更敏感）MeiTuan (美团，用户明显更敏感)
+- Onboard **simultaneously** if there is a lot of overlap in two sides: Etsy
+- Onboard simultaneously if there is no standalone value: Nasdaq in 1971
+
+**Cost dynamics 成本是不同的**
+
+- Onboard first those who have low ongoing cost of staying on the platform: Meituan (restaurant 有较低成本，因此先被上线
 
 
 
 ## 6. Online Reputation
 
-GTS 的例子很重要
+### 6.1 Information Asymmetries
 
-以及怎么证明 Reputation 的因果关系很重要，三种方式，可能现场出一个其他的例子来进行
+**Reasons**
 
-出现了设计问题，该如何一一应对解决
+**Interacting with strangers.** E-commerce precludes potential customers from **inspecting goods prior to purchase**.  Online sellers tend to be newer firms/individuals and may have **less brand or reputation** capital to signal quality. **Sellers** (transaction partners) vary in terms of Skill, Effort, Ethics. These factors can create **information asymmetries** between buyers and sellers not present in off-line purchases. 
+
+**Information Asymmetries**
+
+- Asymmetric information 
+- Uncertainty (symmetric incomplete information) 
+
+**Adverse Selection** 逆向选择质量差的
+
+- Defination: hidden characteristics / critical **prior to transaction**. Is a market situation where buyers and sellers have different information, so that a participant might participate selectively in trades which benefit them the most, at the expense of the other trader. 
+- Examples: Akerlof's market for lemons. Job market. Health insurance
+- Possible solutions to adverse selection: Screening (充分调查市场). Signaling (发送信号)
+
+**Moral Hazard** 在被保护下做出肆无忌惮的做法
+
+- Definition: Moral hazard can arise in any bilateral transaction, where an agent has the opportunity to deviate from the promised course of action, but where the action he takes is **hidden** such that he **doesn’t bear the full (negative) consequences/risk** of the action that he takes. 
+- Examples: A person hired by a company (雇员); Museums asking for donations (募捐); Bailing out companies (救助公司); Paid sick leaves; Health insurance (健康保险); Renting a costume.
+- Possible solutions to moral hazard: Monitoring (做好监管); Performance-based pay (根据表现定价); Reputation system.
+
+### 6.2 Offline reputation system
+
+**Information**
+
+- More information to consumers is almost **always better**: economists and policy markers normally support policies to make more info available.
+- In addition, when information is provided by firms it might affect their behavior as well. 
+
+**Data**
+
+In December 1997 LA County passed an ordinance requiring restaurants to display rating cards. 餐厅评级体系
+
+- Demand at good places should go up or down? **UP**
+- Demand at bad places should go up or down? **DOWN**
+- Restaurants themselves might increase or decrease quality? (if the benefit exceeds the costs) **YES**
+- Ratings reduce search costs for consumers. Competition will go up or down? **UP**
+
+### 6.3 Online reputation system
+
+Online reputation systems are online mechanisms that aggregate feedback from users past experiences, to enable **more informed decisions** of other users in the future. 
+
+**Impact of Reputation Systems** 
+
+- 增加价值：One study found that eBay buyers are willing to pay an 8% premium for buying from a seller who has 2,000 positive feedbacks and 1 negative feedback, compared to a seller with 10 positive feedbacks and no negatives. 
+- 造成不信任：In another study, the researchers found that upon receiving his first negative rating, a seller’s weekly sales drop significantly, but that subsequent negative feedback has a much smaller effect. 
+- 清理市场：The studies have also found that sellers are more likely to exit the market, the lower their reputation is. 
+
+**Why Do Consumers Read Reviews?**
+
+The main reasons given for accessing reviews are: 
+
+- to ensure the product or service is **of good quality** (79%) 
+- that the **product works** (61%) 
+- to make sure they **don't get ripped off** (53%) 
+
+**Why Do Consumers Write Reviews?** 
+
+Motivations to post online reviews, are: 
+
+- help others make **better purchasing decisions** (62%) 
+- it is polite to leave feedback (35%) 
+- want to share positive experiences (27%) 
+- to help good vendors get business (25%) 
+
+**Do Consumers Trust Reviews?** 
+
+- Most consumers find reviews trustworthy, but only **13%** believe they are "very trustworthy" and a full **90%** believe that some people review products and services without trying them. 
+- YouGov survey found that 21% of consumers have written reviews for products/services **they had never actually tried**. 
+- A similar proportion (91%) believe companies write their own **positive reviews** and 89% think businesses **write negative reviews** about their competitors. 恶意抹黑
+
+**Brand Reviews Across Industries**
+
+The importance of reviews and advocacy is evident in every industry. 
+
+- Online reviews are especially important for the **hotel/travel industry,** where over 80% of consumers find user reviews important. 酒店旅游业更重要
+- Positive advocacy tends to be higher in industries whose products or services evoke consumers’ greater emotional involvement, such as smartphones, or in aspirational categories such as luxury cars. 能引起共鸣的行业中积极推荐比较普遍
+- nIn contrast, negative advocacy tends to be much higher in service businesses, such as retail banking and mobile telecommunications: the reason is that any consumer facing interaction might lead to a negative experience, whereas a good product will usually remain satisfying. 服务业中消极的推荐则更为普遍
+
+### 6.4 Reputation Systems 
+
+The reputation-system introduces **intertemporal considerations**. Reputation causes people to take into account potential obstructions to their future trading-activity that are caused by receiving a bad reputation from malevolent behavior today. 
+
+Reputation systems **alleviate the risk of observing morally hazardous behavior** by market-participants and, therefore, induces honest and trustworthy behavior. 
+
+The reputation-system allows to clearly **distinguish benevolent sellers from malevolent ones**, reducing the potential for adverse selection. 
+
+**Adverse Selection & Reputation Systems**
+
+Reputation systems can be used to s**olve the adverse selection** problem by using **signaling mechanisms**. 
+
+Remember that the goal is for the buyers to know the true quality of the goods that are in the market. 
+
+Other users who have already bought the product have received a private signal about the products quality, i.e., they had the **chance to experience it and evaluate it**, and thus now have a better-informed belief about the products true quality.
+
+By eliciting feedback from these users and sharing it with the community, the adverse selection problem can be addressed. 
+
+**Moral Hazard & Reputation Systems**
+
+Reputation systems can be used to address the moral hazard problem by using a **sanctioning mechanism**. 裁决机制
+
+The idea is to sanction bad behavior by actors in the market. 
+
+The reputation system can publish the history of actions of all agents, and can adopt the norm not to buy from agents who have repeatedly displayed bad behavior, or only at discounted prices. 拒绝与多次表现很差的人做交易
+
+If the expected future losses from having a bad reputation is larger than the gains from cheating a few times, this provides the agents with an incentive to cooperate instead of to cheat. 利益受损大于短期获利那么就会注重 reputation 而作出正确选择
+
+**Reputation Systems: Different Functions**
+
+Depending on the particular domain, reputation systems can fulfill many different functions, including: 
+
+- Trust-building: Reputation systems can encourage “good” behaviors and discourage “bad” behaviors. 
+- Matching: Reputation systems can help to aggregate the most salient (重要) information about each product, making the selection easier for the users. 
+- Promote quality
+- Sustain loyalty (保持忠诚): Once a person or a product has a gained a particular reputation in one system, it is not easy to transfer or switch to another system. 
+
+**A Simple Model of A Reputation System** 
+
+<img src="./Final-Review-Note.assets/4.3.png" alt="4.3" style="zoom:50%;" />
+
+- **Proposition:** In the group prisoner’s dilemma game with n agents, it is a Nash equilibrium for all players to play the grim-trigger strategy, for $δ ≥ 1/2$. 一旦贴现率大于 1/2 那么整个系统都会选择合谋 C 不会有人 D
+- **Proof:** Assume that all agents except for one play the reputational-grim-trigger strategy. The agent considering the deviation faces the following decision problem: if he deviates once, all other agents will play D against him in all future founds. Thus, the analysis is the same as in the 2-player prisoner dilemma game above, which shows that for δ ≥ 1/2 , the agent is best-off to cooperate. 
+- **Lesson:** There is strategic element in reputation building. To succeed, a reputation system should render cooperation (good behaviour) a dominant strategy. 
 
 
 
