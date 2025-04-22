@@ -4,7 +4,6 @@
 >
 > 接收到学长之前的考试经验，平台经济学的考试核心在于对概念的理解和记忆，一些比较复杂的推导在考试中并不要求。因此复习策略比较简单，就是把 PPT 全部梳理一遍，将其中的核心概念进行列举并反复记忆。同时结合学长提供的记忆单进行背诵。
 >
-> 整体来说这门课包括以下几块的内容，每天按照进度不断往后推（一天看四个 PPT）
 
 
 
@@ -791,9 +790,176 @@ Today, companies acknowledge that shoppers share and read online reviews, and in
 
 
 
-## 7. Position Auction
+## 7. Online Advertising and Position Auction
 
-First Price 和 Second Price 之间有什么区别，怎么样化解，谷歌的 AdWords
+### 7.1 Introduction
+
+An Internet user enters a search term (query or keyword) into a search engine. He gets back a page of results containing both links **most relevant to the query** (i.e., organic links) and the **sponsored links** (i.e., paid advertisements).
+
+**Two types of fee structure**
+
+- Pay per impression: When a user **sees** sponsored link, the advertiser then pays the search engine.
+- Pay per click: When a user **clicks** on the sponsored link, the advertiser then pays the search engine for sending user to its Web page. 
+
+The number of ads that the search engine can show **is limited**. Different positions on the search result page have different desirabilities to advertisers (the top slot will receive the largest number of clicks and hence most attractive). Using Auction (**Generalized second-price (GSP) auction**) to sell position.
+
+### 7.2 **Brief history of position auctions** 
+
+**Pre-1994: advertising sold on a per impression basis, traditional direct sales to advertisers.** 
+
+- Advertisers paid **flat fee** to show their ads a fixed number of times (typically, 1,000 showings or “impressions”).
+- Contracts were negotiated on a **case-by-case** basis, but the minimum contracts were large (a few thousands per month). 
+
+**1994: Overture (formly GoTo.com) allows advertisers to bid for keywords**
+
+Offering some amount **per click**. It was first company to use pay per click payment structure. 
+
+**Late 1990s: Yahoo! and MSN adopt Overture. They started to use generalized first price auction**
+
+- Advertiser could target their ads: instead of paying for a banner ad, they could specify keywords.
+
+- Ads links are shown in descending order of bids (**similar to** **first-price auction**).
+
+- **Unstable:** advertisers constantly change bid to avoid paying more than necessary. GFA 是不稳定的
+
+  > Why unstable? 首先我们要确定什么是 stable 的均衡，就是给定其他条件的情况下，变量没有变化的动机。现在给一个 GFA：
+  >
+  > Example: Two slots and three advertisers.
+  >
+  > - the first slot receives 200 clicks while the second receives 100. 
+  > - advertiser 1, 2, and 3 have value per click of $10, 4 and 2 respectively. 
+  >
+  > If we use generalized first-price auction, does a pure strategy equilibrium exist?
+  >
+  > ```ABAP
+  > 不存在稳定的均衡.
+  > 假设: 1 出 10 , 2 出 4 , 3 出 2.
+  > 那么在 2 和 3 出价不变的情况下, 1 有改变自己价格的倾向: 减少到 4.1
+  > 此时在 1 和 3 出价不变的情况下, 2 有改变自己价格的倾向: 减少到 2.1
+  > 所以不会稳定
+  > ```
+
+**GSP**
+
+2002: Google introduced its own pay-per-click system, **AdWords**. Yahoo! and MSN also switched to this **generalized second-price** (**GSP)** system. 
+
+- for a specific keywords, advertisers submit a bid **stating their maximum willingness to pay** for a click. 
+- the search results will be shown **in decreasing order** of bids. 出价越高的广告在越显眼的位置.
+- If a user click on an ad in position i, that advertiser is charged by the search engine an amount equal to the **next highest bid**, i.e., the bid of an advertiser at position i+1. 广告位置的单价以紧邻更低的价格为准
+
+> Example: Two slots and three advertisers. The first slot receives 200 clicks while the second receives 100. Advertiser 1, 2, and 3 have value per click of $10, 4 and 2, respectively.
+>
+> Generalized second-price auction
+>
+> - suppose everyone reports truthfully, then bids are \$ 10, \$ 4, and \$ 2.
+> - payments will be \$ 4 and \$ 2.
+> - Is this an equilibrium ?
+>
+> ```ABAP
+> 这是一个均衡!
+> 在 2 和 3 出价不变的情况下 1 没有改变价格的倾向
+> 在 1 和 2 出价不变的情况下 3 没有改变价格的倾向
+> 所以很稳定
+> ```
+
+Features:
+
+- Tailored to the unique environment of the market of online ads. 根据市场环境独家定制
+- Dominant transaction mechanism in this large and rapidly growing industry.
+- Most of Google revenues comes from GSP auctions. (for Yahoo!, over half)  
+
+### 7.3 Basic setting of position auction
+
+There are $N$ advertisers: $a = 1, 2,\cdots, N (N > S)$.
+
+There are $S$ slots: $s = 1,2,\cdots,S$.
+
+- If $S=1$, then it is **standard second-price auction**
+- If $S>1$, then it is **generalized second-price auction**
+
+The slots closer to the top receive more clicks. Higher position yields higher **click-through** **rate**: $x^1 >x^2,\cdots>x^S$.
+
+Expected profit per click-through: $v_a > 0$. Expected profit to advertiser $a$ from appearing at slot $s$: $u_a^s = v_a * x^s$. 最终的单价由 bid 出的价格决定 $p_s = b_{s+1}$.
+
+Example with N = 4 and S = 3:
+
+<img src="./Final-Review-Note.assets/7.1.png" alt="7.1" style="zoom:50%;" />
+
+### 7.4 Standard second-price auction
+
+前面的基础设定就不在此赘述了，直接上最终结果: In the standard second-price auction, it is a weakly dominant strategy for bidder $i$ to bid exactly his true value $v_i$ (Truth-telling). **Standard 的最优结果一定是 bid truthfully.**
+
+A player’s weakly dominant strategy is a strategy that yields him weakly higher payoff no matter what his rivals choose. We prove this argument using **2 steps:**
+
+- $b_i = v_i$ weakly dominates bidding any $b_i < v_i$. 
+
+  > Consider a bid $b_i = x < v_i$.
+  >
+  > - Suppose $\max b_{-i} > v_i$. **Both bids, $v_i$ and $x$, will lose**. The payoffs are the same.
+  > - Suppose $x < \max b_{-i} < v_i$. **Bidding $v_i$ will win while bidding $x$ will lose**. Bidding $v_i$ yields positive payoff $v_i - \max b_i$ while bidding $x$ yields payoff 0.
+  > - Suppose $\max b_{-i} < x$. **Both bids, $v_i$ and $x$ will win**. Both bids yield payoff $v_i - \max b_{-i}$.
+
+- $b_i = v_i$ weakly dominates bidding any $b_i > v_i$.
+
+  > Consider a bid $b_i = x > v_i$.
+  >
+  > - Suppose $\max b_{-i} > x$. **Both bids, $v_i$ and $x$, will lose**. The payoffs are the same.
+  > - Suppose $v_i < \max b_{-i} < x$. **Bidding $v_i$ will lose while bidding $x$ will win**. Bidding $v_i$ yields payoff 0 while bidding $x$ yields a negative payoff $v_i - \max b_{-i}$.
+  > - Suppose $\max b_{-i} < v_i$. **Both bids, $v_i$ and $x$ will win**. Both bids yield payoff $v_i - \max b_{-i}$.
+
+### 7.5 Generalized second-price auction
+
+In a GSP position auction, **bidding truthfully (bid his true value) is not necessarily a dominant strategy.** 
+
+Example1 :
+
+- Three bidder and two slots, with 200 and 100 clicks. 
+- Consider a bidders with value 10. 
+- If the other two bidders bid 8 and 4. will he bid truthfully?
+
+```ABAP
+这种情况下 truthfully 出价不是最优的，而是出在 8 - 4 区域中
+```
+
+Example 2 :
+
+- Three bidder and two slots, with 200 and 100 clicks. 
+- Consider a bidders with value 10. 
+- If the other two bidders bid 8 and 6. will he bid truthfully?
+
+```ABAP
+这种情况下 truthfully 出价则是和 8 - 4 区间无差别的
+```
+
+因此 GSP 的求解就比较复杂，且没有固定答案。简化的方法是使用 A symmetric Nash equilibrium set of prices (SNE) 来进行优化。
+
+### 7.6 Case study: online ads and Google
+
+**Three Drivers Behind Increased Online Ad Spending**
+
+- Increasing user time online
+- Improved measurement  & accountability
+- Targeting
+
+**Pricing Model**
+
+- **Cost per thousand (CPM):** Advertiser pays for every thousand times an ad is displayed (Magazine advertising).
+- **Cost per action (CPA):** Advertiser pays each time a person does something (sale, registration, etc.) (Car Insurance Quote).
+- **Cost per click (CPC):** Advertiser pays each time a Web site visitor clicks on an ad (Google).
+
+**AdWords**
+
+- Advertisers specify the maximum CPC they are willing to pay.
+- The rank of ads based on both **maximum CPC** and **the quality of advertisers’ web pages**. (不仅看钱还看质量)
+- Actually pay just one cent more than the second highest bid.
+
+**Success of Google**
+
+- Google’s trick is “matchmaking” — matching advertisers to right audience.
+- Pull (instead of Push) Advertising (根据兴趣分发, 而不是强推)
+- Pricing Method (CPC instead of CPM)
+- Selling Strategy (Auction instead of fixed prices)
+- Ad Networks (AdSense)
 
 
 
