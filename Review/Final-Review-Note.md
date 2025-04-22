@@ -1085,3 +1085,72 @@ Currently one of the most frequently used approaches and usually provides better
 
 ## 9. Sharing Economy
 
+### 9.1 Three drivers
+
+**Economic drivers**
+
+- Rising costs of production 成本高
+- Desire to maximize resource utilization 物尽其用
+- Consumer interest in developing new sources of income through freelancing 自由职业开发新收入来源
+
+**Technological drivers**
+
+- Mobile devices
+- Social networks
+- Sensors (enabling the “internet of things”) 
+- Payment systems 
+
+**Societal drivers**
+
+- The desire for an independent lifestyle
+- Public concern about environmental and community sustainability
+
+### 9.2 Peer-to-peer sharing
+
+Individuals can share their underused goods (e.g., room, car, office space) with their peers through **a sharing platform**.
+
+- Also called collaborative consumption
+- Short-time sharing
+- Economic and socializing incentive
+
+**How will emergence of sharing economy affect people’s purchase?**
+
+- On the one hand, people have an alternative option for buying. They may purchase less, but rent/share more.
+- On the other hand, existence of sharing market gives people incentive to buy products and share them out, in order to gain extra income. 
+
+**How will emergence of peer-to-peer sharing affect price and revenue of traditional markets?**
+
+Sharing economy may intensify the competition and undermine the price and revenue of competitors (Airbnb vs. hotels). 
+
+**Result: Market clear** 市场出清
+
+- In each period, some consumers may rent out their purchased products while others may rent a product from the product-sharing market. 
+- In equilibrium, the supply and the demand for product sharing will be equal.
+- In each period $𝑗$, there will be a market-clearing price ($p_j$) that works to match the supply and demand.
+
+When the firm strategically chooses its retail price, consumers’ sharing of products with **high marginal costs** is **win-win** for the firm and the consumers whereas their sharing of products with low marginal costs can be lose-lose. 共享边际成本高的是双赢，边际成本低的是双输
+
+### 9.3 On-demand service
+
+Connects waiting-time-sensitive customers with independent service providers. 
+
+<font color="red">**Matching in on-demand service**</font>
+
+**First-dispatch protocol** 首次调度
+
+- In the first-dispatch protocol, only open drivers are considered as dispatchable. 
+- Each request is immediately assigned to the open driver who is predicted to **have the shortest en route time**. 
+
+但是这种调度方法可能**不是最优的**，因为在调度过程中可能还会出现新的更优的单子。
+
+**Batching** 批量调度
+
+Requests are collected for a short time window (e.g., a few seconds). Then an optimization problem is solved to pair each request with an open driver. If there are riders that are not matched in this batch, they are carried over and re-solved in the next batching window. 
+
+**Dynamic matching**
+
+They found that the first-dispatch protocol usually performs reasonably well; however, in the case where there are severe imbalances between demand and supply across regions, the proposed dynamic policies can significantly out- perform the first-dispatch protocol. 
+
+<font color="red">**Pricing**</font>
+
+随时间随城市动态定价！
