@@ -963,9 +963,123 @@ Example 2 :
 
 
 
-## 8. Recommender System
+## 8. Recommendation System
 
-2 种推荐方法，必须要十分清楚定义
+### 8.1 Introduction
+
+Recommender Systems are software tools and techniques **providing suggestions for items** to be of use to a consumer.
+
+The goal of automated recommendation engines, or recommender systems, is to estimate **how highly a user would rate an unseen product**
+
+- based on ratings provided by this user on other products
+- based on ratings provided by other users
+- ultimately recommend a product or set of products. 
+
+**Recommendation System is really important** (大量的收益都来源于此)
+
+- 35% of the purchases on Amazon are the result of their recommender system, according to McKinsey.
+- 75% of what people are watching on Netflix comes from recommendations, according to McKinsey.
+- Employing a recommender system enables Netflix to save around $1 billion each year
+
+**Core Target**
+
+Support users in various decision-making processes, such as what items to buy, what music to listen, or what news to read, cope with **information overload** / abundance of choice. Recommender systems has the **potential to lower search costs** - a key function of multi-sided platforms. 
+
+**What are the needs**
+
+To be useful, a recommender system needs to have some information about a user’s own preferences. 
+
+- Explicit Ratings: The user actively **rates items** (e.g. as on Netflix) 
+- Implicit Ratings: The system infers ratings based on the **user’s behavior** (browsing and purchasing behavior on Amazon.) 
+
+User’s profile: information on user’s age, gender, location and so forth. 
+
+<img src="./Final-Review-Note.assets/8.1.png" alt="8.1" style="zoom:40%;" />
+
+正上图所示，Popular Products 拥有大规模的 popularity，因此数据更容易获得，也就更容易被精准推送。
+
+**Example 1. Netflix**
+
+Finding content is a non-trivial challenge on Netflix, given the massive amount of content, making a recommender system an extremely important component of their business model. Estimate a utility function that automatically predicts how a user will like an item, based on Past behavior, Relation to other users, Item similarity & Context.
+
+**Examples 2. Amazon** 
+
+Amazon’s “**Like**” option enable users to provide a binary feedback signal, allowing personalized recommendations based on the books (items) a user Likes. In addition to these **explicit ratings** (via the Like button and purchases), Amazon also takes a lot of **implicit information** into account, in particular the user’s **viewing** and **browsing** behavior. 根据是否喜欢以及国王的浏览记录
+
+**Examples 3. Pandora** 
+
+When a user first visits Pandora, the user create your **first “radio station.”** For this, she enters her favorite song or artist, at which point Pandora creates a (personal) radio station based on the user’s taste.
+
+### 8.2 Content-based Filtering
+
+Based on **a description of the item and a profile of the user's preferences**. 编码货物和用户信息做比较后进行推荐。
+
+**Assumption**
+
+People who agreed in the past will agree in the future, and that they will like similar kinds of items as they liked in the past. These methods are best suited to situations where there is known data on an item (name, location, description, etc.), but not on the user. Usually used in social media.
+
+**Problems**
+
+- do not provide any mechanism for evaluating the quality or popularity of an item. 需要评估质量，但却没建立任何机制
+- items must include some form of content that can extract feature by algorithms. 有的内容根本无法提取特征
+
+### 8.3 Collaborative Filtering
+
+Items are recommended to customers based on the interests of a community of customers, **without the analysis of items’ content**, also be called the social recommendation system. 无需分析 item 的内容, 只需要对人的特征进行比对即可。
+
+**Assumption**
+
+People who behave similarly in the past will continue to buy similar products in the future, items that were rated highly by one group customer will be recommended to similar customers in their “community”. The system takes all users’ ratings into account in making a recommendation.
+
+**Method**
+
+Currently one of the most frequently used approaches and usually provides better results than content-based recommendations.  **Methods to measure user similarity or item similarity**: the k-nearest neighbor (k-NN) approach and the Pearson Correlation.
+
+**Problems**
+
+- **Cold start 冷启动, 刚开始消费行为不多无法比较**: For a new user or item, there isn't enough data to make accurate recommendations. Can be alleviated by asking users for other type of data at the time of sign-up (gender, age, interests, etc), and using meta information from the items in order to be able to relate them to other existing items in the database.
+- **Scalability 规模太大, 指数级增加算力**: there are millions of users and products. Thus, a large amount of computation power is often necessary to calculate recommendations.
+- **Sparsity 稀缺性, 商品无评分**: The number of items sold on major e-commerce sites is extremely large. The most active users will only have rated a small subset of the overall database. Thus, even the most popular items have very few ratings.
+- **Not suitable for unusual tastes:** since the collaborative filtering recommendation system relies on the community of “similar customers”, it is poorly suitable for providing recommendations to customers who have unusual tastes.
+
+**Solutions: Hybrid Method**
+
+- A content-based approach would **come in handy after the users start interacting**, or you could ask them explicitly about their interests to help you at the beginning. 
+- Once the volume of users and interactions increases, it's time to **start contemplating a collaborative-filtering approach** to augment the potential of your system.
+
+### 8.4 Impact
+
+**How to Evaluate the Performance ?**
+
+- **Online methods**: (A/B testing), user reactions are measured given the recommendations made. For example, you can measure when the user clicks on the recommended items — as well as the conversion rate — and evaluate the direct impact of the system. 
+- **Offline methods**: the system doesn’t have to be deployed. The data is split into training and validation datasets, which means that part of the data will be used to construct the system and the other part to evaluate it. 
+
+**Example 1: Amazon’s Item-to-item Collaborative Filtering 构造 item 相似集群**
+
+- Rather than matching the user to similar customers, item-to-item collaborative filtering matches each of the user’s purchased and rated items **to similar items**, then combines those similar items into a recommendation list.
+- The algorithm builds a similar-items table by finding items that customers tend to purchase together. We could build a **product-to-product matrix** by iterating through all item pairs and computing a similarity metric for each pair.
+
+**Example 2: Taobao’s Tree-based Deep Model 层层递进，层层深入，先生成小的集合再逐步扩大**
+
+- Matching: after receiving page view request from a customer, the system uses user features, context features, and item features as input to generate a relatively **smaller set of candidate items** from the entire corpus in the matching server.
+- Ranking: With hundreds of candidate items, the real-time server uses more expressive but also more time-consuming models to predict indicators like click-through rate or conversion rate. After ranking by strategy, **several items** are ultimately impressed to each customer.
+
+**What do companies say:** 
+
+- Netflix: 2/3 of the movies watched are recommended.
+- Google news: recommendations generate 38 % more click though.
+- Amazon says 35 % of product sales result from recommendations.
+
+**OK Cupid experiment** 考虑两个维度，**实际的匹配率**以及**显示给用户的匹配率**
+
+不管是实际的匹配率还是呈现给用户让用户相信的匹配率都能带来消费的增加。Similarly, Adomavicius et al. (2018) find that randomly generated ”recommendation ratings” on an music app significantly affect consumers’ willingness to pay. 
+
+**Dark side of recommendation system**
+
+- They can manipulate preferences in ways consumers don’t realize. 掌控消费者的喜好
+- Fresh means to exert market power. 驱动市场
+- Privacy and consumer protection issues. 隐私泄漏
+- Filter bubbles and echo chambers. 信息茧房，与外界隔离
 
 
 
