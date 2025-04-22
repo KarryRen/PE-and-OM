@@ -565,6 +565,230 @@ Depending on the particular domain, reputation systems can fulfill many differen
 - **Proof:** Assume that all agents except for one play the reputational-grim-trigger strategy. The agent considering the deviation faces the following decision problem: if he deviates once, all other agents will play D against him in all future founds. Thus, the analysis is the same as in the 2-player prisoner dilemma game above, which shows that for δ ≥ 1/2 , the agent is best-off to cooperate. 
 - **Lesson:** There is strategic element in reputation building. To succeed, a reputation system should render cooperation (good behaviour) a dominant strategy. 
 
+### 6.5 Methods to measure causal effect of online reviews
+
+<font color="red">**已经搭建起 Reputation System 后开始考虑如何对这个系统做研究，真的有效果吗？**</font>
+
+**Cross-sectional inference**
+
+To measure the impact of online reviews ondemand of product $j$, if we run the following regression:
+$$
+\text{Demand}_j = \alpha + \beta* \text{Review}_j + \epsilon_j
+$$
+这种回归方式难以估计出准确的因果关系，因为内生性的存在 $\epsilon_j$ 和 $\text{Review}_j$ 并不是独立不相关的，因此 $\beta$ 大概率被高估。
+
+**Panel data inference**
+
+不同的时间可能有不固定的因果？那可以获取面板数据回归。When firms have data on demand and online reviews for various products over time, an approach that deals with some of the problem is one that **relies on panel data with fixed effects** at the level of the cross-sectional unit.
+$$
+\text{Demand}_{tj} = \alpha_t + \beta * \text{Review}_{jt} + \epsilon_{jt}
+$$
+**A/B tests**
+
+当然这还是很有可能有内生性，那我们还可以仿照自然情况直接做实验。Randomly leave for a subset of products and then compare sales of these products with the sales of products which they did not leave review. 然后针对实验结果跑回归。
+$$
+\text{Demand}_{j} = \alpha + \beta * \text{Review}_{j} + \epsilon_{j}
+$$
+<font color="red">**更为细致的回归方法**</font>
+
+**Natural experiments 自然实验是自然发生的政策或其他事件导致的数据差异**
+
+Natural experiments rely on historical data that contain events that affect online reviews but are otherwise unrelated to demand. The purpose is to find the **exogeneous shock**. Difference-in-difference: comparisons of outcomes **shortly before and shortly afte**r the natural experiment.
+
+> **Example:** Study the impact of user-generated microblogging content on the viewership of Chinese TV shows. 看微博评论对电视收视率的影响，发现其中有一段时间 WeiBo 突然被 Shut Down 了，正好是一次自然 (During the time period covered by the data, Sina Weibo was **unexpectedly** shut down for a brief period of time. The shutdown qualifies as a natural experiment)，做 DID 检验效果即可。
+
+Other natural experiments:
+
+- Merger of two review platforms (Lewis and Zervas, 2016).
+- Change of methods to present the ratings. 
+- Change of algorithms to calculate the scores. 
+
+Limitation
+
+- Hard to find, not standardized. (自然实验还是很少)
+- Often yield context-specific estimates 
+- Firms or individuals may anticipate the natural experiments and strategically adjust their behavior
+
+**A/B tests 人为做实验修改变量验证效果**
+
+Use information on any activity a firm might be able to leverage to **foster online reviews among its users**. **Indirect** manipulation of online reviews (操控 review 做到 A/B Tests). **Peer encouragement.** E.g., a targeted advertising campaign to users that provided positive reviews in the past.
+
+> **Exapmle:** Eckles et al. (2016) randomly alters the Facebook interface of some users such that they become more likely to provide feedback (e.g., likes) to other users in their network. They then study the impact of the altered feedback behavior of the affected users on the behavior of their peers. 最后发现修改界面的人的朋友点赞数量也增加，这表明社交反馈具有传染性。
+
+Advantages: Scalable; Downside: Hard to find interventions that affect online reviews without also directly affecting demand.
+
+**Regression Discontinuity 断点回归**
+
+Platforms have two scores: the underlying **continuous score** and a **star rating** (rounded to the nearest half star). Some platforms only present to consumers the rounded star rating (or only make it prominent). The rounding generates a **discontinuous jump** in the perceived rating (因为取整导致了跳跃) .Those products near the rounding threshold are likely to be similar except for their rounded star ratings. Hence, the causal impact of the star ratings can be obtained by comparing demand for products **marginally above and marginally below** the rounding threshold. 
+
+Advantage: Scalable; Limitation: Only applicable to platforms which round the star ratings; Only suitable for analysis of valence, not number or content of reviews.
+
+<font color="red">**目前已经被证实的一些结果**</font>
+
+**Review Valence (评论等级)**: Average ratings are most studied aspect of the online reviews. Research find that they have a substantial causal impact on demand, though the magnitude of this effect varies by timing and context. 
+
+**Review volume (评论量)**: are typically displayed prominently next to average ratings, and consumers can also use them to infer quality. Increases in review volume could lead to increased demand.
+
+**Review Content (评论内容)**: is inherently high dimensional. Most analyses of review text rely on a pre-processing step that transforms text into a small number of variables.
+
+> Ghose and Ipeirotis (2011) study the text of travel reviews and find that objectivity and readability are **correlated with higher product sales.** 
+>
+> Ludwig et al. (2013) show that positive and negative affective content (e.g., words such as “love” and “hate,” which are detected using LIWC) are **positively associated** with conversion rates. 
+>
+> Packard and Berger (2017) find explicit endorsements (“I recommended this book”) are **more persuasive than implicit endorsements** (“I enjoyed this book”). 
+>
+> Kupor et al. (2017) find product endorsements that contain **typographical errors** are perceived as more authentic, thus enhancing their persuasiveness. (有排版错误的评论更有说服力)
+
+**Moderators of the relationship between reviews and demand (存在修正)**: Impact of reviews depends on consumers’ prior information. Reviews are not the only information source available to consumers, and thus they affect demand only to the extent that they provide new information. 影响主要来自于新增的信息
+
+> 对于品牌连锁店，评论造成的影响很小，因为从评论中能获得的额外信息不多。Luca (2016) finds that Yelp ratings **do not impact the revenue of chain restaurants**. Lewis and Zervas (2016) show the impact of TripAdvisor ratings is much **smaller for chain-affiliated hotels** than for independently operated properties. 
+
+**Timing**: Babic et al. (2016) show that **early reviews are more important** than recent reviews in driving the sales of new products.  
+
+**黑红也是红**: Review platforms can help consumers discover new products and services they were not aware of. Berger et al. (2010) show that even negative reviews can have a positive impact on demand when they cause a sufficient increase in consumer awareness.
+
+**Effect of online reviews on pricing and advertising**: Houser and Wooders (2006) find that on eBay, seller’s reputation has an economically and statistically **significant effect** on price; Lewis and Zervas (2016) use TripAdvisor data to show that hotel prices **increase** in response to online ratings; Hollenbeck et. al (2019) find that on TripAdvisor, hotels with higher ratings **spend less** on advertising than hotels with lower ratings. 
+
+### 6.6 Design of online reputation system
+
+<font color="red">**一个现实中的 online reputation system 该如何设计？**</font>
+
+How Should An Ideal Reputation System Work? It should yield:
+
+- High correlation between “reputation scores” and “true scores”.
+- Or high correlation between “reputation scores” and future seller behavior.
+- The system should be manipulation-proof towards any kind of malevolent action. (不会有任何的恶意操控)
+- The system should measure and reliably display the trustworthiness of market-participants. (能够可靠显示市场参与度)
+
+**细节决定**: In the real-world, the design of reputation systems must take into account many **different aspects of the particular domain**, and the devil is often in the details. Over the last few years, a group of market design researchers have studied the reputation system in detail, run experiments, ultimately changed the design, and studied the consequences of their change. 
+
+<font color="red">**一个现实中的 online reputation system 该如何设计？**</font>
+
+**What information to present?**
+
+- Which actions are most relevant to the reputation system’s users?
+  - To decide whether a seller is **honest**
+  - To help users determine whether a reviewer has **similar tastes** to their own
+- Which behaviors are desirable?
+  - Want more posts or higher quality of reviews
+- For which behaviors can one obtain reliable information?
+  - First hand (internally generated) vs second hand (from others) feedback
+
+**How to Aggregate and Display?**
+
+- The extent to which the reputation mechanism **makes a judgment** versus allowing users to **make their own judgments**.
+- The extent to which the presence of the reputation system can create **competition** among users.
+
+*Way 1.* Raw activity statistics. E.g., # reviews posted, # transactions completed
+
+- Most neutral method, 这是最中立的方法, 既有优势又有劣势
+- Advantage: allows users to draw their own conclusions
+- Disadvantage: users must be familiar enough with the environment to draw the proper conclusions. 
+
+*Way 2.* Scores and distinctions. E.g. star ratings, numerical scores, levels, achievement
+
+- Advantage: directly communicate to users whether somebody’s performance is good or bad
+- Attention: Best in settings where there is a commonly agreed upon notion of what “quality” means. 
+
+*Way 3.* Leaderboards and relative rankings
+
+- Advantage: Increases incentives to contribute 
+- Disadvantage: Instills a culture of competition (might be disruptive). Manipulative; Churn 
+
+*Way 4.* Display a user’s entire history vs. recent behavior only. 
+
+- Displaying entire history. 
+  - Pros: helps build loyalty; 
+  - Cons: not good for incentivizing continued contribution for seasoned users, and discourage new members from joining.
+- Displaying recent behavior. 
+  - Pros: gives newcomers equal opportunities; 
+  - Cons: reduce the cost of moving to a competitor’s website
+
+<font color="red">**Common problems and solutions**</font>
+
+**Not enough reviews**
+
+While most people read reviews to inform a purchase, only **a small fraction** write reviews on any platform they use. Strong network effect makes it worse. Solutions:
+
+- **Seeding reviews 找代写的人**: hiring reviewers or drawing in reviews from other platforms. **Pros**: useful in the early stages; **Cons**: costly; differ from organically generated content.
+- **Offering incentives 给激励**: motivate (financially or non-financially) your platform’s users to contribute reviews and ratings. **Pros**: simple and direct. **Cons**: costly for a large product array. could backfire (可能会适得其反).
+- **Pooling products 一评多用**: by reconsidering the unit of review, you can make a single comment apply to multiple products. **Pros**: useful as your product space broadens. **Cons**: may fail to give your customers the information they need about any particular offering.
+
+**Selection bias**
+
+Research finds that consumers tend to leave a review only when their experience is **very good or very bad.** **Selection bias**: might not accurately represent the full range of customers’ experiences of the product. 只有非常好和非常坏的评论，因为只有感受很好或很坏的人才会有动力评论。
+
+Example: eBay’s inflated online ratings in 2011. Thus eBay reformulated seller scores as **the percentage of all of a seller’s transactions** **that generated positive ratings** (instead of the percentage of positive ratings, why? 只有真正交易的人才能评论). 
+
+Solutions:
+
+- **Require reviews 强制评论**: requires users to review a purchase before making another one. **Pros:** simple; **Cons:** consumer churn 用户流失; noninformative review by using the default review.
+- **Allow private comments 私下评论**: allow users to leave feedback that only the transaction partner could see.
+- **Design prompts carefully 尽可能为评论者思考, 让其更好评论:** thoughtfully design different aspects of the environment in which users decide whether to review. 在写评论的时候不同的提示词下, 用户撰写的评论长度可能就有影响
+
+**Whitewashing** 
+
+An agent simply exits the system once he has a bad reputation, creates a new identity, and starts with a blank slate. This is particularly **easy** in many online domains where users only have pseudonyms, and thus nothing prevents them from whitewashing. Whitewashing can render the grim-trigger strategy ineffective! 毫无成本的洗白让犯罪风险很低, 评分无用
+
+Solutions:
+
+- **Require unique identities.** Cons: would severely limit registration numbers.
+- **Require an initiation fee upon entry.** If the fee is chosen to be large enough, compared to the payoff the user receives from defecting and running down his reputation profile. 让注册费有威慑效果
+- **Force new player to “pay their dues”.** The idea is to favor agents that have been in the system longer, or equivalently, to punish newcomers a little bit. 待的时间越长相对优惠越大
+
+**Fraudulent Reviews**
+
+Sellers sometimes try (unethically) to boost their ratings by leaving positive reviews for themselves or negative ones for their competitors. 很多商家会对自己的产品进行虚假评论从而引流。
+
+Solutions:
+
+- **Set rules for reviewers 设定规则:** decide who can review and whose reviews to highlight. **Cons:** may reduce the number of genuine reviews and reviewers. 可能就会减少数量了
+- **Call in the moderators :** moderation can eliminate misleading reviews on the basis of their content. 请人帮忙做调整 (Employee, Community, Algorithm).
+
+**Reciprocity**
+
+Studies found a high degree of **reciprocity** between feedback from two traders involved in the same transaction. **Reciprocity（互惠性）** 指用户之间因相互评价行为而产生的策略性互动倾向，即一方对另一方的评价可能引发对方的对等或反向回应。这种行为可能表现为正向的“礼尚往来”（如积极评价引发更多积极评价），也可能表现为负向的“报复性反馈”（如差评引发更极端的负面回应）.
+
+**Solutions - Simultaneous reveal:** feedback is only made public either after both traders have submitted their feedback, or after a fixed number of days has expired such that no more feedback giving is possible. 
+
+- Pros: removes the possibility of conditioning the feedback on the feedback of the trading partner.
+- Cons: might diminish the **frequency of feedback** giving overall, in particular, the mutually satisfactory feedback.
+
+### 6.7 Firm strategies for Reputation System
+
+<font color="red">**Trends and innovations 一些有关信誉系统的创新趋势应用**</font>
+
+**Convenience** 追求更加便利
+
+- **ultra-aggregation:** Sites which gather reviews on various businesses and/or industries. 将评论聚合起来方便查看
+- **meta reviews:** Innovative tools offer companies to monitor reviews from **all over the web**, while providing **meta-data** which analyzes authentic reviews, for the end-user. 提供原数据 “Meta-Reviews are a trusted summary of relevant reviews worldwide, showing the most talked about and most relevant attributes of a particular hotel, along with some special, important-to- know ‘nuggets’ of information that are unique to the particular hotel.” 
+- **search integration:** Shoppers usually use reviews as part of their shopping journey. So search engines strive to integrate reviews through the search engine.
+
+**Personalization** 追求更加个性
+
+- Amazon offers a “Shop With the Help of Your Friends” program. Users connect their Amazon account with their Facebook account to join. 社群化
+- In 2012, TripAdvisor launched an app for Facebook, a way for hotel owners to pad their Facebook Pages with reviews, ratings, photos, and other content. 个性 APP
+
+**Trust: everything is reviewable**
+
+Grocery retailers and hypermarkets, are also incorporating online reviews, in order to drive sales and reduce online shopping barriers. 线下的平台也开始引入评分，目的就是搭建信任。
+
+**Interaction: real-time feedback**
+
+Mobile tools provide a way to post a review immediately upon receiving the service. 伴随体验及时回复
+
+**Multi-channel, Multi-format**
+
+Online reviews take many forms, and marketers should try and monitor those most important to their category. Review aggregators have evolved over the years: 起初只有评分，后续有了推荐甚至可以上传视频。
+
+<font color="red">**Firm strategies**</font>
+
+Today, companies acknowledge that shoppers share and read online reviews, and instead of viewing that fact as a threat, they try and turn it into an opportunity, by: 
+
+- Hosting the reviews in their own websites
+- Encouraging the user to a review aggregator for reading / writing a review
+- Using positive reviews in their marketing communications (用评论做宣传)
+
 
 
 ## 7. Position Auction
