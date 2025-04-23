@@ -21,7 +21,7 @@ Platforms leverage network effects. Network effects mean that a user will pay mo
 
 **Reason 2: Platforms usually have fewer employees and less fixed investment than traditional companies**
 
-**Reason n: platform strength**
+**Reason 3: platform strength**
 
 - **The focus is external**: A platform tries to bring together as many as possible from both (or all) sides, match them and create transactions. 
 - Platforms disrupt traditional business
@@ -53,7 +53,7 @@ A platform that operates centralized exchanges may improve efficiency by sorting
 
 $v_H > v_L > c_H > c_L$ 本身就是最优均衡了，引入平台后 $v_L$ 和 $c_H$ 仍然会在平台下自由交易，这是和上面最大的区别，平台引入不会带来新的价值提升。
 
-### 1.4 Dealer versus pure platform operators
+### 1.5 Dealer versus pure platform operators
 
 **Model**
 
@@ -90,7 +90,7 @@ Under our specification of uniform distribution, **a dealer platform and a pure 
 - **Direct**: buyers form a network of users **who communicate with each other**. 我用了，会直接联系其他人一起用
   - Phones, Emails, Fax Machines, Operating Systems
   - DVD Players, Social Media, E-commerce and Games
-- **Indirect**: the number of buyers of a good stimulates production of goods (supply side) that enhance the value of initial product. 买家多了 ⇒ 买家就会更多⇒ 买家获得更大效用
+- **Indirect**: the number of buyers of a good stimulates production of goods (supply side) that enhance the value of initial product. 买家多了 ⇒ 卖家就会更多⇒ 买家获得更大效用
   - **Operating Systems:** more Windows users ⇒ more firms develop software ⇒ higher utility for Windows users. 
   - **Payment Cards:** 用的人多的话，Pos 机就多，用的人的效用就会很增加
   - **Shopping Malls**: more shoppers ⇒ more stores in the mall ⇒ higher utility to go there.
@@ -139,7 +139,7 @@ Price 在 0 和 1 之间的时候有三个均衡点，两边的点是稳定的�
 
 上述分析可以得到 Critical Mass:
 
-- Threshold $f_- (p)$ is usually thought of as the **critical mass** of buyers which leads to the buildup of the network.
+- Threshold $f_- (p)$ is usually thought of as the **critical mass** of buyers which leads to the build up of the network.
 - Once the monopoly has reached this critical mass, the snowball starts rolling (in the right direction), and consumers demand converges to the high-demand equilibrium $f_+ (p)$.
 - Sometimes, it may take a lot of time to reach the critical mass. Example: Fax machines in the U.S.
 
@@ -614,13 +614,20 @@ Use information on any activity a firm might be able to leverage to **foster onl
 
 > **Exapmle:** Eckles et al. (2016) randomly alters the Facebook interface of some users such that they become more likely to provide feedback (e.g., likes) to other users in their network. They then study the impact of the altered feedback behavior of the affected users on the behavior of their peers. 最后发现修改界面的人的朋友点赞数量也增加，这表明社交反馈具有传染性。
 
-Advantages: Scalable; Downside: Hard to find interventions that affect online reviews without also directly affecting demand.
+Advantages: Scalable; 
+
+Downside: Hard to find interventions that affect online reviews without also directly affecting demand.
 
 **Regression Discontinuity 断点回归**
 
 Platforms have two scores: the underlying **continuous score** and a **star rating** (rounded to the nearest half star). Some platforms only present to consumers the rounded star rating (or only make it prominent). The rounding generates a **discontinuous jump** in the perceived rating (因为取整导致了跳跃) .Those products near the rounding threshold are likely to be similar except for their rounded star ratings. Hence, the causal impact of the star ratings can be obtained by comparing demand for products **marginally above and marginally below** the rounding threshold. 
 
-Advantage: Scalable; Limitation: Only applicable to platforms which round the star ratings; Only suitable for analysis of valence, not number or content of reviews.
+Advantage: Scalable; 
+
+Limitation: 
+
+- Only applicable to platforms which round the star ratings; 
+- Only suitable for analysis of valence, not number or content of reviews.
 
 <font color="red">**目前已经被证实的一些结果**</font>
 
@@ -660,8 +667,6 @@ How Should An Ideal Reputation System Work? It should yield:
 - The system should measure and reliably display the trustworthiness of market-participants. (能够可靠显示市场参与度)
 
 **细节决定**: In the real-world, the design of reputation systems must take into account many **different aspects of the particular domain**, and the devil is often in the details. Over the last few years, a group of market design researchers have studied the reputation system in detail, run experiments, ultimately changed the design, and studied the consequences of their change. 
-
-<font color="red">**一个现实中的 online reputation system 该如何设计？**</font>
 
 **What information to present?**
 
